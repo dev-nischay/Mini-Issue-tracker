@@ -1,0 +1,25 @@
+{
+  "name": "mini-issue-tracker",
+  "version": "1.0.0",
+  "description": "Building  a SQL-focused mini Issue Tracker to practice real relational database design and querying.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc -b && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-nischay/Mini-Issue-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dev-nischay/Mini-Issue-tracker/issues"
+  },
+  "homepage": "https://github.com/dev-nischay/Mini-Issue-tracker#readme",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
