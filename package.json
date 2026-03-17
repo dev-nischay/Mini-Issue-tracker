@@ -14,16 +14,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/dev-nischay/Mini-Issue-tracker/issues"
   },
   "homepage": "https://github.com/dev-nischay/Mini-Issue-tracker#readme",
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "@types/pg": "^8.18.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "pg": "^8.20.0"
   }
