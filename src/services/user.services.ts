@@ -4,7 +4,6 @@ import { httpStatus } from "../types/enums.js";
 import { AppError } from "../utils/AppError.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import type { jwtPayload } from "../types/jwtExtends.js";
 const secret = process.env.JWT_SECRET;
 
 if (!secret) {
@@ -22,8 +21,11 @@ export const createUserService = async (data: User) => {
 
   const hashPassword = await bcrypt.hash(data.password, 10);
 
-  const user = await userRepo.createUser({ username, email, password: hashPassword });
-  return user;
+  const result = await userRepo.createUser({ username, email, password: hashPassword });
+  return {
+    message: "you are signed up",
+    result,
+  };
 };
 
 export const loginUserService = async (data: Omit<User, "username">) => {
@@ -46,7 +48,10 @@ export const loginUserService = async (data: Omit<User, "username">) => {
     secret,
   );
 
-  return token;
+  return {
+    message: "you are signed in ",
+    token,
+  };
 };
 
 export const logoutUserService = async (userid: number) => {
@@ -56,5 +61,7 @@ export const logoutUserService = async (userid: number) => {
     throw new AppError("user not found", httpStatus.BadRequest);
   }
 
-  return user;
+  return {
+    message: "you are logged out",
+  };
 };
