@@ -1,8 +1,6 @@
 declare namespace Express {
   export interface Request {
-    user: {
-      userid: import("./jwtExtends.ts").jwtPayload | string;
-    };
+    userid: number;
 
     validatedBody: unknown;
     validatedParams: unknown;

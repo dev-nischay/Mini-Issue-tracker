@@ -5,4 +5,5 @@ export enum httpStatus {
   Conflict = 409,
   Unauthorized = 401,
   NotFound = 404,
+  Forbidden = 403,
 }
