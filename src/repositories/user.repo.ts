@@ -1,7 +1,6 @@
 import { prisma } from "../config/connectDb.js";
 import type { PrismaClient } from "@prisma/client";
 import type { User } from "../types/db.types.js";
-
 export class UserRepo {
   constructor(public prisma: PrismaClient) {}
 
