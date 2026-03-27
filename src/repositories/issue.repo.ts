@@ -16,6 +16,13 @@ class IssueRepo {
   async findIssue(issueId: number) {
     return await this.prisma.issue.findUnique({ where: { issue_id: issueId } });
   }
+
+  async getCommentsByIssue(issueId: number) {
+    return await this.prisma.issue.findUnique({
+      where: { issue_id: issueId },
+      select: { title: true, comments: { select: { comment: true } } },
+    });
+  }
 }
 
 export const issueRepo = new IssueRepo(prisma);

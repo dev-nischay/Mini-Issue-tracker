@@ -14,3 +14,9 @@ export type Issue = {
   title: string;
   description: string;
 };
+
+export type Comment = {
+  user_id: number;
+  issue_id: number;
+  comment: string;
+};

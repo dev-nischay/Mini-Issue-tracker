@@ -4,16 +4,19 @@ import { createIssueSchema, issueIdSchema, updateIssueStatusSchema } from "../zo
 import { asyncHandler } from "../utils/asyncWrapper.js";
 import { isProjectOwner } from "../middlewares/isOwner.js";
 import { createIssue, getAllIssues, updateIssueStatus } from "../controllers/issue.controller.js";
+import commentRouter from "./comment.routes.js";
 const issueRouter = Router();
 
 issueRouter.get("/", asyncHandler(getAllIssues));
-issueRouter.use(isProjectOwner);
-issueRouter.post("/", validator(createIssueSchema), asyncHandler(createIssue));
+issueRouter.post("/", validator(createIssueSchema), isProjectOwner, asyncHandler(createIssue));
 issueRouter.put(
   "/:issueId",
   validator(updateIssueStatusSchema),
   validator(issueIdSchema, "params"),
+  isProjectOwner,
   asyncHandler(updateIssueStatus),
 );
+
+issueRouter.use("/:issueId/", validator(issueIdSchema, "params"), commentRouter);
 
 export default issueRouter;
