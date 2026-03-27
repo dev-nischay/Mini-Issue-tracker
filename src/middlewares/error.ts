@@ -13,7 +13,7 @@ export const ErrorMiddleware = (err: unknown, req: Request, res: Response<ApiErr
   }
 
   if (err instanceof Error) {
-    console.log(`Unexpected Error: ${err}`);
+    console.log(`Unexpected Error: ${err} ${err.stack}`);
 
     return res.status(500).json({ success: false, error: "Something went wrong try again later" });
   }

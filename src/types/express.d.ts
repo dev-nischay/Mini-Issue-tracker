@@ -3,7 +3,7 @@ declare namespace Express {
     userid: number;
 
     validatedBody: unknown;
-    validatedParams: unknown;
+    validatedParams: { projectId: number; issueId: number };
     validatedQuery: unknown;
   }
 }

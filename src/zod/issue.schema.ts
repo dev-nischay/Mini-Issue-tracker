@@ -18,6 +18,10 @@ export const updateIssueStatusSchema = z.object({
   status: z.union([z.literal("open"), z.literal("in_progress"), z.literal("closed")]),
 });
 
+export const issueIdSchema = z.object({
+  issueId: z.string(),
+});
+
 export type createIssueBody = z.infer<typeof createIssueSchema>;
 export type updateIssueBody = z.infer<typeof updateIssueSchema>;
 export type updateStatusBody = z.infer<typeof updateIssueStatusSchema>;

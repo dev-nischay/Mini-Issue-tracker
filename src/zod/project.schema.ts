@@ -6,7 +6,10 @@ export const createProjectSchema = z.object({
 
 export const renameProjectSchema = z.object({
   projectName: z.string().max(300),
-  projectId: z.int(),
+});
+
+export const projectIdSchema = z.object({
+  projectId: z.string(),
 });
 
 export type createProjectBody = z.infer<typeof createProjectSchema>;

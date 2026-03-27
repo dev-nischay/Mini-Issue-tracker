@@ -1,16 +1,18 @@
-import { Client } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "@prisma/client";
 
-const pgUrl = process.env.DB_CONNECTION_STRING;
+export const prisma = new PrismaClient({
+  adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
+  log: [{ emit: "event", level: "query" }],
+});
 
-export const connectDb = async () => {
-  try {
-    if (pgUrl) {
-      const client = new Client(pgUrl);
-      await client.connect();
-      return;
-    }
-    console.error("ENVIORMENT VARIABLES ARE NOT SET");
-  } catch (error) {
-    console.log(`db connection failed -- ${error}`);
-  }
-};
+process.on("SIGINT", async () => {
+  await prisma.$disconnect();
+  process.exit(0);
+});
+
+prisma.$on("query", (e) => {
+  console.log("Query: " + e.query);
+  console.log("Params: " + e.params);
+  console.log("Duration: " + e.duration + "ms");
+});

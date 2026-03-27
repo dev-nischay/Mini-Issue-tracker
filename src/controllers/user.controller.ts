@@ -4,14 +4,18 @@ import { createUserService, loginUserService, logoutUserService } from "../servi
 import type { ApiResponse } from "../types/constants.types.js";
 import type { User } from "../types/db.types.js";
 
-export const createUser = async (req: Request, res: Response<ApiResponse<User>>, next: NextFunction) => {
+export const createUser = async (
+  req: Request,
+  res: Response<ApiResponse<Omit<User, "password">>>,
+  next: NextFunction,
+) => {
   const data = req.validatedBody as signupBody;
 
   const { result, message } = await createUserService(data);
 
   return res.json({
     success: true,
-    data: { username: result.username, password: result.password, email: result.email },
+    data: { username: result.username, email: result.email },
     message,
   });
 };

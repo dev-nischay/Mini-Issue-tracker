@@ -3,7 +3,7 @@ import { safeParse, ZodType } from "zod";
 import { AppError } from "../utils/AppError.js";
 import { httpStatus } from "../types/enums.js";
 
-export const verify = (schema: ZodType, source: "body" | "params" | "query" = "body") => {
+export const validator = (schema: ZodType, source: "body" | "params" | "query" = "body") => {
   return (req: Request, res: Response, next: NextFunction) => {
     const data = req[source];
 
@@ -21,7 +21,7 @@ export const verify = (schema: ZodType, source: "body" | "params" | "query" = "b
         req.validatedBody = result.data;
         break;
       case "params":
-        req.validatedParams = result.data;
+        req.validatedParams = result.data as { projectId: number; issueId: number };
         break;
       default:
         req.validatedQuery = result.data;
