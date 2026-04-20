@@ -1,0 +1,22 @@
+import { Router } from "express";
+import { validator } from "../middlewares/zod-validator.js";
+import { createIssueSchema, issueIdSchema, updateIssueStatusSchema } from "../zod/issue.schema.js";
+import { asyncHandler } from "../utils/asyncWrapper.js";
+import { isProjectOwner } from "../middlewares/isOwner.js";
+import { createIssue, getAllIssues, updateIssueStatus } from "../controllers/issue.controller.js";
+import commentRouter from "./comment.routes.js";
+const issueRouter = Router();
+
+issueRouter.get("/", asyncHandler(getAllIssues));
+issueRouter.post("/", validator(createIssueSchema), isProjectOwner, asyncHandler(createIssue));
+issueRouter.put(
+  "/:issueId",
+  validator(updateIssueStatusSchema),
+  validator(issueIdSchema, "params"),
+  isProjectOwner,
+  asyncHandler(updateIssueStatus),
+);
+
+issueRouter.use("/:issueId/", validator(issueIdSchema, "params"), commentRouter);
+
+export default issueRouter;
